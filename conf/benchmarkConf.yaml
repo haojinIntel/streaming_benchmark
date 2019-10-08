@@ -1,0 +1,17 @@
+# Default parallelism of flink job
+streambench.flink.parallelism            20
+streambench.flink.bufferTimeout          10
+streambench.flink.checkpointDuration     5000
+streambench.flink.timeType               EventTime
+streambench.zkHost                       192.168.32.23:2181,192.168.26.125:2181
+streambench.kafka.brokerList             192.168.32.23:9093,192.168.32.23:9094,192.168.32.23:9095,192.168.26.125:9093,192.168.26.125:9094,192.168.26.125:9095
+streambench.kafka.consumerGroup          kafka_to_hdfs
+# sql config
+q1.sql                                   shopping
+q2.sql                                   click
+q3.sql                                   imp
+q4.sql                                   dau,click
+q5.sql                                   userVisit
+q6.sql                                   userVisit
+q7.sql                                   userVisit
+q8.sql                                   userVisit

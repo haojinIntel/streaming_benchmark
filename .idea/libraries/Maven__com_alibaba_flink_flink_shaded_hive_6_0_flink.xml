@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.alibaba.flink:flink-shaded-hive:6.0-flink">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alibaba/flink/flink-shaded-hive/6.0-flink/flink-shaded-hive-6.0-flink.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alibaba/flink/flink-shaded-hive/6.0-flink/flink-shaded-hive-6.0-flink-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/alibaba/flink/flink-shaded-hive/6.0-flink/flink-shaded-hive-6.0-flink-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

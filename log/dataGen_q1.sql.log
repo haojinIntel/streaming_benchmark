@@ -1,0 +1,24 @@
+Starting execution of program
+root
+ |-- name: commodity
+ |-- type: StringType
+ |-- isNullable: true
+ |-- name: num
+ |-- type: LongType
+ |-- isNullable: false
+ |-- name: EXPR$2
+ |-- type: ProctimeTimeIndicator
+ |-- isNullable: false
+ |-- name: EXPR$3
+ |-- type: ProctimeTimeIndicator
+ |-- isNullable: false
+ |-- name: EXPR$4
+ |-- type: LongType
+ |-- isNullable: true
+----------------runtime---------------- :65807
+Program execution finished
+Job with JobID 4aba8caf1425d982636b74a3b59e21ed has finished.
+Job Runtime: 65807 ms
+Accumulator Results: 
+- shopping (java.lang.Integer): 53227
+

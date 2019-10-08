@@ -1,0 +1,14 @@
+------------------Already input args[]------------------
+============ StreamBench Data Generator ============
+======== StreamBench Data Generator Finished ========
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+Exception in thread "Thread-1" kafka.common.FailedToSendMessageException: Failed to send messages after 3 tries.
+	at kafka.producer.async.DefaultEventHandler.handle(DefaultEventHandler.scala:98)
+	at kafka.producer.Producer.send(Producer.scala:78)
+	at kafka.javaapi.producer.Producer.send(Producer.scala:35)
+	at com.intel.stream_benchmark.ClickProducer$$anonfun$mockUserInfo$1.apply$mcVI$sp(ClickProducer.scala:62)
+	at scala.collection.immutable.Range.foreach$mVc$sp(Range.scala:160)
+	at com.intel.stream_benchmark.ClickProducer.mockUserInfo(ClickProducer.scala:53)
+	at com.intel.stream_benchmark.ClickProducer.run(ClickProducer.scala:17)

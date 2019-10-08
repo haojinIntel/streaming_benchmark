@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="flink_benchmark" />
+        <module name="spark_benchmark" />
+        <module name="dataGen" />
+        <module name="stream_benchmark_common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dataGen" target="1.8" />
+      <module name="flink_benchmark" target="1.8" />
+      <module name="spark_benchmark" target="1.8" />
+      <module name="stream_benchmark" target="1.8" />
+      <module name="stream_benchmark_common" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

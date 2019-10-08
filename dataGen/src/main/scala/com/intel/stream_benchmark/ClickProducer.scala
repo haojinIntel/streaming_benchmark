@@ -103,8 +103,8 @@ class ClickProducer(val time:Long) extends Thread {
         // pageView的页面ID范围是:[0,100)
         val pageId: Long = random.nextInt(100)
 
-        val currentActionTime: Long = getCurrentActionTime(preActionTime)
-        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
+        val actionTime: Long = getCurrentActionTime(preActionTime)
+//        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
         val searchKeyword: String = ""
         val clickCategoryId: String = ""
         val clickProductId: String = ""
@@ -136,13 +136,13 @@ class ClickProducer(val time:Long) extends Thread {
 
         if (randomValue <= t1) {
           // 浏览
-          generatePageView(times + 1, userId, sessionId, cityId, currentActionTime)
+          generatePageView(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t2) {
           // 搜索
-          generateSearch(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateSearch(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t3) {
           // 点击
-          generateClick(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateClick(times + 1, userId, sessionId, cityId, actionTime)
         } else {
           // nothings, 结束
         }
@@ -155,8 +155,8 @@ class ClickProducer(val time:Long) extends Thread {
         // 添加新数据
         // search的页面ID范围是:[100,150)
         val pageId: Long = random.nextInt(100, 150)
-        val currentActionTime = getCurrentActionTime(preActionTime)
-        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
+        val actionTime = getCurrentActionTime(preActionTime)
+//        val currentActionTime: String = DateUtils.parseLong2String(currentActionTime)
         val searchKeyword: String = keywords(random.nextInt(keywordSize))
         val clickCategoryId: String = ""
         val clickProductId: String = ""
@@ -188,13 +188,13 @@ class ClickProducer(val time:Long) extends Thread {
 
         if (randomValue <= t1) {
           // 浏览
-          generatePageView(times + 1, userId, sessionId, cityId, currentActionTime)
+          generatePageView(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t2) {
           // 搜索
-          generateSearch(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateSearch(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t3) {
           // 点击
-          generateClick(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateClick(times + 1, userId, sessionId, cityId, actionTime)
         } else {
           // nothings, 结束
         }
@@ -206,8 +206,8 @@ class ClickProducer(val time:Long) extends Thread {
       if (times < 20) {
         // click的页面ID范围是:[150,300)
         val pageId: Long = random.nextInt(150, 300)
-        val currentActionTime = getCurrentActionTime(preActionTime)
-        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
+        val actionTime = getCurrentActionTime(preActionTime)
+  //      val actionTime: String = DateUtils.parseLong2String(currentActionTime)
         val searchKeyword: String = ""
         val (productID, categoryID) = generateProduceAndCategoryId()
         val clickProductId: String = productID.toString
@@ -239,16 +239,16 @@ class ClickProducer(val time:Long) extends Thread {
 
         if (randomValue <= t1) {
           // 浏览
-          generatePageView(times + 1, userId, sessionId, cityId, currentActionTime)
+          generatePageView(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t2) {
           // 搜索
-          generateSearch(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateSearch(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t3) {
           // 下单
-          generateOrder(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateOrder(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t4) {
           // 点击
-          generateClick(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateClick(times + 1, userId, sessionId, cityId, actionTime)
         } else {
           // nothings, 结束
         }
@@ -260,8 +260,8 @@ class ClickProducer(val time:Long) extends Thread {
       if (times < 20) {
         // order的页面ID范围是:[300,301)
         val pageId: Long = 300
-        val currentActionTime = getCurrentActionTime(preActionTime)
-        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
+        val actionTime = getCurrentActionTime(preActionTime)
+//        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
         val searchKeyword: String = ""
         val clickProductId: String = ""
         val clickCategoryId: String = ""
@@ -302,13 +302,13 @@ class ClickProducer(val time:Long) extends Thread {
 
         if (randomValue <= t1) {
           // 浏览
-          generatePageView(times + 1, userId, sessionId, cityId, currentActionTime)
+          generatePageView(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t2) {
           // 搜索
-          generateSearch(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateSearch(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t3) {
           // 支付
-          generatePay(times + 1, userId, sessionId, cityId, currentActionTime, productIds = orderProductIds, categoryIds = orderCategoryIds)
+          generatePay(times + 1, userId, sessionId, cityId, actionTime, productIds = orderProductIds, categoryIds = orderCategoryIds)
         } else {
           // nothings, 结束
         }
@@ -320,8 +320,8 @@ class ClickProducer(val time:Long) extends Thread {
       if (times <= 20) {
         // pay的页面ID范围是:301
         val pageId: Long = 301
-        val currentActionTime = getCurrentActionTime(preActionTime)
-        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
+        val actionTime = getCurrentActionTime(preActionTime)
+//        val actionTime: String = DateUtils.parseLong2String(currentActionTime)
         val searchKeyword: String = ""
         val clickProductId: String = ""
         val clickCategoryId: String = ""
@@ -350,10 +350,10 @@ class ClickProducer(val time:Long) extends Thread {
 
         if (randomValue <= t1) {
           // 浏览
-          generatePageView(times + 1, userId, sessionId, cityId, currentActionTime)
+          generatePageView(times + 1, userId, sessionId, cityId, actionTime)
         } else if (randomValue <= t2) {
           // 搜索
-          generateSearch(times + 1, userId, sessionId, cityId, currentActionTime)
+          generateSearch(times + 1, userId, sessionId, cityId, actionTime)
         } else {
           // nothings, 结束
         }

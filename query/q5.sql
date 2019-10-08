@@ -1,5 +1,5 @@
 SELECT
-        sessionId, MAX(UNIX_TIMESTAMP(actionTime))-MIN(UNIX_TIMESTAMP(actionTime)) as len
+        sessionId, MAX(actionTime)-MIN(actionTime) as len
 FROM
         userVisit
 GROUP BY

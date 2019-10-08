@@ -126,7 +126,7 @@ public class Benchmark {
         }
 
         // define sink
-        String sinkFile = "file:///home/" + config.sqlName +".csv";
+        String sinkFile = config.resultLocation + "/" + config.sqlName +".csv";
         RetractCsvTableSink sink = new RetractCsvTableSink(sinkFile, ",",1, FileSystem.WriteMode.OVERWRITE);
 
         //runQuery
@@ -264,7 +264,7 @@ public class Benchmark {
     }
 
 
-    public static class UserVisitWatermarks implements AssignerWithPeriodicWatermarks<Tuple13<String, Long, String, Long, String, String, String, String, String, String, String, String, Integer>> {
+    public static class UserVisitWatermarks implements AssignerWithPeriodicWatermarks<Tuple13<String, Long, String, Long, Long, String, String, String, String, String, String, String, Integer>> {
         Long currentMaxTimestamp = 0L;
         final Long maxOutOfOrderness = 2000L;// ??????????10s
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -277,7 +277,7 @@ public class Benchmark {
         }
 
         @Override
-        public long extractTimestamp(Tuple13<String, Long, String, Long, String, String, String, String, String, String, String, String, Integer> element, long previousElementTimestamp) {
+        public long extractTimestamp(Tuple13<String, Long, String, Long, Long, String, String, String, String, String, String, String, Integer> element, long previousElementTimestamp) {
             Long timestamp = Long.valueOf(element.f4);
             currentMaxTimestamp = Math.max(timestamp, currentMaxTimestamp);
             return timestamp;
@@ -381,7 +381,7 @@ public class Benchmark {
     }
 
 
-    public static class DeserializeUserVisit extends RichFlatMapFunction<String, Tuple13<String, Long, String, Long, String, String, String, String, String, String, String, String, Integer>> {
+    public static class DeserializeUserVisit extends RichFlatMapFunction<String, Tuple13<String, Long, String, Long, Long, String, String, String, String, String, String, String, Integer>> {
 
         private IntCounter userVisit = new IntCounter();
         @Override
@@ -392,15 +392,15 @@ public class Benchmark {
         }
 
         @Override
-        public void flatMap(String s, Collector<Tuple13<String, Long, String, Long, String, String, String, String, String, String, String, String, Integer>> collector) throws Exception {
+        public void flatMap(String s, Collector<Tuple13<String, Long, String, Long, Long, String, String, String, String, String, String, String, Integer>> collector) throws Exception {
             this.userVisit.add(1);
             String[] split = s.split(",");
-            Tuple13<String, Long, String, Long, String, String, String, String, String, String, String, String, Integer> tuple = new Tuple13<>(
+            Tuple13<String, Long, String, Long, Long, String, String, String, String, String, String, String, Integer> tuple = new Tuple13<>(
                     split[0],
                     Long.valueOf(split[1]),
                     split[2],
                     Long.valueOf(split[3]),
-                    split[4],
+                    Long.valueOf(split[4]),
                     split[5],
                     split[6],
                     split[7],

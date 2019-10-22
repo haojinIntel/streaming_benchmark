@@ -3,4 +3,4 @@ SELECT
 FROM
         userVisit
 GROUP BY
-        sessionId
+        sessionId, TUMBLE(rowtime, INTERVAL '10' SECOND)

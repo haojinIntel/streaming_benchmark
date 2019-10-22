@@ -1,43 +1,29 @@
 package com.intel.stream_benchmark
 
+import java.io.FileWriter
 import java.util.{Properties, UUID}
-
 import com.intel.stream_benchmark.click._
 import com.alibaba.fastjson.JSONObject
-import com.intel.stream_benchmark.utils.{Constants, DateUtils}
-import kafka.javaapi.producer.Producer
-import kafka.producer.{KeyedMessage, ProducerConfig}
-import kafka.serializer.StringEncoder
-
+import com.intel.stream_benchmark.common.{ConfigLoader, DateUtils, StreamBenchConfig}
+import com.intel.stream_benchmark.utils.Constants
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 import scala.collection.mutable.ArrayBuffer
 
-class ClickProducer(val time:Long) extends Thread {
+class ClickProducer(val time:Long, val cl: ConfigLoader) extends Thread {
+  var total = 0
 
   override def run(): Unit = {
     mockUserInfo()
     mockUserVisitAction(time)
     mockProductInfo
-
   }
-
-//  def main(args: Array[String]): Unit = {
-//
-//    new ClickProducer(100L).start()
-//
-//
-//
-//
-//
-//
-//
-//  }
 
   private def createProducer = {
     val properties = new Properties
-    properties.put("zookeeper.connect", "192.168.32.23:2181,192.168.26.125:2181")
-    properties.put("serializer.class", classOf[StringEncoder].getName)
-    properties.put("metadata.broker.list", "192.168.32.23:9093,192.168.32.23:9094,192.168.32.23:9095,192.168.26.125:9093,192.168.26.125:9094,192.168.26.125:9095")
-    new Producer[String, String](new ProducerConfig(properties))
+    properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer")
+    properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer")
+    properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, cl.getProperty(StreamBenchConfig.KAFKA_BROKER_LIST))
+    new KafkaProducer[String, String](properties)
   }
 
 
@@ -59,9 +45,10 @@ class ClickProducer(val time:Long) extends Thread {
       val city = citys(random.nextInt(cityTypeSize))._2
       val sex = sexs(random.nextInt(sexTypeSize))
       //      println(dataUtil.UserInfo(userId, userName, name,age, professional, city, sex).formatted(","))
-      producer.send(new KeyedMessage("userInfo", String.valueOf(random.nextInt(3)), UserInfo(
+      producer.send(new ProducerRecord("userInfo", String.valueOf(random.nextInt(3)), UserInfo(
         userId, userName, name,
         age, professional, city, sex).formatted(",")))
+      total =total + 1
     }
 
   }
@@ -75,7 +62,7 @@ class ClickProducer(val time:Long) extends Thread {
 
   def mockUserVisitAction(time: Long) = {
     val date: String = DateUtils.getTodayDate()
-    val producer: Producer[String, String] = createProducer
+    val producer: KafkaProducer[String, String] = createProducer
     val start: Long = System.currentTimeMillis()
     val count = 0
 
@@ -114,8 +101,8 @@ class ClickProducer(val time:Long) extends Thread {
         val payProductIds: String = ""
 
         // 添加数据
-        producer.send(new KeyedMessage("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
-
+        producer.send(new ProducerRecord("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
+        total =total + 1
         // 进入下一步操作
         /**
           * 浏览之后可能存在搜索、点击和继续浏览三种情况， 也存在直接退出的情况
@@ -166,8 +153,8 @@ class ClickProducer(val time:Long) extends Thread {
         val payProductIds: String = ""
 
         // 添加数据
-        producer.send(new KeyedMessage("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
-
+        producer.send(new ProducerRecord("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
+        total =total + 1
         // 进入下一步操作
         /**
           * 搜索之后可能存在点击、浏览和继续搜索三种情况， 也存在直接退出的情况
@@ -218,8 +205,9 @@ class ClickProducer(val time:Long) extends Thread {
         val payProductIds: String = ""
 
         // 添加数据
-        producer.send(new KeyedMessage("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
+        producer.send(new ProducerRecord("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
         // 进入下一步操作
+        total =total + 1
         /**
           * 点击之后可能存在浏览、搜索、下单和继续点击四种情况， 也存在直接退出的情况
           * 当times次数小于3的时候，10%继续浏览，10%搜索，50%下单，25%的点击，5%直接退出
@@ -280,8 +268,8 @@ class ClickProducer(val time:Long) extends Thread {
         val payProductIds: String = ""
 
         // 添加数据
-        producer.send(new KeyedMessage("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
-
+        producer.send(new ProducerRecord("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
+        total =total + 1
         // 进入下一步操作
         /**
           * 下单之后可能存在搜索、浏览和支付三种情况， 也存在直接退出的情况
@@ -331,8 +319,8 @@ class ClickProducer(val time:Long) extends Thread {
         val payProductIds: String = productIds
 
         // 添加数据
-        producer.send(new KeyedMessage("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
-
+        producer.send(new ProducerRecord("userVisit", String.valueOf(random.nextInt(2)), UserVisitAction(date, userId, sessionId, pageId, actionTime, searchKeyword, clickCategoryId, clickProductId, orderCategoryIds, orderProductIds, payCategoryIds, payProductIds, cityId).formatted(",")))
+        total =total + 1
         // 进入下一步操作
         /**
           * 支付之后可能存在搜索和浏览两种情况， 也存在直接退出的情况
@@ -399,6 +387,10 @@ class ClickProducer(val time:Long) extends Thread {
 
       if ((System.currentTimeMillis() - start) > time*1000) {
         flag = false
+        var out = new FileWriter("/home/streaming_benchmark/result/kafkaProducer.log",true)
+        out.write(Thread.currentThread().getName + "Topic2  Runtime: " + time + " Count:" + total)
+
+
       }
 
     }
@@ -447,7 +439,7 @@ class ClickProducer(val time:Long) extends Thread {
     */
   def mockProductInfo() = {
     // 1. 创建Data数据
-    val producer: Producer[String, String] = createProducer
+    val producer: KafkaProducer[String, String] = createProducer
     val buffer = ArrayBuffer[ProductInfo]()
     for (i <- 0 until productNumbers) {
       val productID: Long = i.toLong
@@ -464,7 +456,7 @@ class ClickProducer(val time:Long) extends Thread {
         }
         obj.toJSONString
       }
-      producer.send(new KeyedMessage("productInfo", String.valueOf(random.nextInt(2)), ProductInfo(productID, productName, extendInfo).formatted(",")))
+      producer.send(new ProducerRecord("productInfo", String.valueOf(random.nextInt(2)), ProductInfo(productID, productName, extendInfo).formatted(",")))
 
     }
 

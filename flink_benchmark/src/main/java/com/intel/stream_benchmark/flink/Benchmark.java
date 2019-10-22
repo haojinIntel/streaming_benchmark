@@ -37,7 +37,7 @@ public class Benchmark {
             BenchLogUtil.handleError("Usage: RunBench <ConfigFile> <QueryName>");
 
         ConfigLoader cl = new ConfigLoader(args[0]);
-        String rootDir = System.getProperty("user.dir");
+//        String rootDir = System.getProperty("user.dir");
 
         // Prepare configuration
         FlinkBenchConfig conf = new FlinkBenchConfig();
@@ -50,8 +50,8 @@ public class Benchmark {
 
 //        conf.sqlLocation = cl.getProperty(StreamBenchConfig.SQL_LOCATION);
 //        conf.resultLocation = cl.getProperty(StreamBenchConfig.FLINK_RESULT_DIR);
-        conf.sqlLocation = rootDir + "/query";
-        conf.resultLocation = rootDir + "/result";
+        conf.sqlLocation = "/home/streaming_benchmark/query";
+        conf.resultLocation = "/home/streaming_benchmark/result";
         conf.sqlName = args[1];
         runQuery(conf);
     }
@@ -127,7 +127,7 @@ public class Benchmark {
 
         // define sink
         String sinkFile = config.resultLocation + "/" + config.sqlName +".csv";
-        RetractCsvTableSink sink = new RetractCsvTableSink(sinkFile, ",",1, FileSystem.WriteMode.OVERWRITE);
+        RetractCsvTableSink sink = new RetractCsvTableSink(sinkFile, ",",100, FileSystem.WriteMode.OVERWRITE);
 
         //runQuery
         File file = new File(config.sqlLocation + "/" + config.sqlName);

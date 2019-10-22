@@ -1,13 +1,14 @@
 package com.intel.stream_benchmark;
 
-import com.intel.stream_benchmark.utils.ConfigLoader;
-import com.intel.stream_benchmark.utils.KafkaProducer;
+import com.intel.stream_benchmark.common.ConfigLoader;
+import com.intel.stream_benchmark.utils.GetProducer;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Datagen {
     public static void main(String[] args) {
+
         System.out.println("------------------Already input args[]------------------");
         String confPath = args[0];
         ConfigLoader configLoader = new ConfigLoader(confPath);
@@ -23,7 +24,7 @@ public class Datagen {
         int producerNumber = num / 1000;
         ExecutorService pool = Executors.newFixedThreadPool(producerNumber);
         for(int i = 0; i < producerNumber; i++){
-            pool.execute(new KafkaProducer(topic, time));
+            pool.execute(new GetProducer(topic, time, configLoader));
         }
         System.out.println("============ StreamBench Data Generator ============");
         pool.shutdown();

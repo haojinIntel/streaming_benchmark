@@ -1,0 +1,3 @@
+------------------Already input args[]------------------
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 3
+	at com.intel.stream_benchmark.Datagen.main(Datagen.java:19)

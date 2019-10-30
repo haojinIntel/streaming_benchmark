@@ -1,0 +1,99 @@
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:65
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:196
+q2.sql  Runtime: 900000 TPS:193
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:69
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:430
+q2.sql  Runtime: 900000 TPS:294
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:9
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:9
+q2.sql  Runtime: 900000 TPS:33
+q2.sql  Runtime: 900000 TPS:33
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+q1.sql  Runtime: 900000 TPS:0
+q2.sql  Runtime: 900000 TPS:0
+
+
+q1.sql  Runtime: 60 TPS:16
+q2.sql  Runtime: 60 TPS:11
+q1.sql  Runtime: 60 TPS:36
+q1.sql  Runtime: 60 TPS:245
+q2.sql  Runtime: 60 TPS:169
+q1.sql  Runtime: 60000 TPS:0
+q1.sql  Runtime: 60000 TPS:156
+q1.sql  Runtime: 60000 TPS:65
+q1.sql  Runtime: 60 TPS:582
+q2.sql  Runtime: 60 TPS:0
+
+
+q2.sql  Runtime: 60 TPS:149
+
+
+q2.sql  Runtime: 60 TPS:0
+q2.sql  Runtime: 60 TPS:354
+q3.sql  Runtime: 60 TPS:0
+q3.sql  Runtime: 60 TPS:0
+q3.sql  Runtime: 60 TPS:0
+q3.sql  Runtime: 60 TPS:656
+q5.sql  Runtime: 60 TPS:10633
+q6.sql  Runtime: 60 TPS:0
+q6.sql  Runtime: 60 TPS:0
+q6.sql  Runtime: 60 TPS:0
+q6.sql  Runtime: 60 TPS:8999
+q6.sql  Runtime: 60 TPS:10132
+
+q1.sql  Runtime: 60 TPS:0
+q1.sql  Runtime: 60 TPS:0
+q1.sql  Runtime: 60 TPS:0
+q1.sql  Runtime: 60 TPS:3604
+q1.sql  Runtime: 60 TPS:0
+q1.sql  Runtime: 60 TPS:0
+q1.sql  Runtime: 60 TPS:0
+q1.sql  Runtime: 60 TPS:2168552
+q1.sql  Runtime: 60 TPS:0
+Finished time: 1572417468793; q1.sql  Runtime: 60 TPS:0
+Finished time: 1572417529414; q2.sql  Runtime: 60 TPS:0
+Finished time: 1572417589854; q5.sql  Runtime: 60 TPS:0
+
+
+Finished time: 1572417821751; q1.sql  Runtime: 60 TPS:1079596
+Finished time: 1572417883265; q2.sql  Runtime: 60 TPS:221144
+Finished time: 1572417944803; q5.sql  Runtime: 60 TPS:584005
+Finished time: 1572421177446; q1.sql  Runtime: 62 TPS:1019259
+Finished time: 1572421239206; q2.sql  Runtime: 62 TPS:260733
+Finished time: 1572421300480; q5.sql  Runtime: 63 TPS:544075
+Finished time: 2019-10-30 16:34:45; q1.sql  Runtime: 62 TPS:0
+Finished time: 2019-10-30 16:35:46; q2.sql  Runtime: 62 TPS:0
+Finished time: 2019-10-30 16:36:48; q5.sql  Runtime: 62 TPS:0

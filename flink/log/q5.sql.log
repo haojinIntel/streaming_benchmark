@@ -1,0 +1,60 @@
+Starting execution of program
+root
+ |-- name: sessionId
+ |-- type: StringType
+ |-- isNullable: true
+ |-- name: len
+ |-- type: LongType
+ |-- isNullable: true
+----------------runtime---------------- :56695
+Program execution finished
+Job with JobID 45de9d4c5a076be2c99c98a17c7c2e75 has finished.
+Job Runtime: 56695 ms
+Accumulator Results: 
+- userVisit (java.lang.Integer): 0
+
+Starting execution of program
+root
+ |-- name: sessionId
+ |-- type: StringType
+ |-- isNullable: true
+ |-- name: len
+ |-- type: LongType
+ |-- isNullable: true
+----------------runtime---------------- :56675
+Program execution finished
+Job with JobID 67721cd17c4948955668701e51de0f3f has finished.
+Job Runtime: 56675 ms
+Accumulator Results: 
+- userVisit (java.lang.Integer): 0
+
+Starting execution of program
+root
+ |-- name: sessionId
+ |-- type: StringType
+ |-- isNullable: true
+ |-- name: len
+ |-- type: LongType
+ |-- isNullable: true
+----------------runtime---------------- :56645
+Program execution finished
+Job with JobID d9099f1de91a924beda3377ed3a1c995 has finished.
+Job Runtime: 56645 ms
+Accumulator Results: 
+- userVisit (java.lang.Integer): 0
+
+Starting execution of program
+root
+ |-- name: sessionId
+ |-- type: StringType
+ |-- isNullable: true
+ |-- name: len
+ |-- type: LongType
+ |-- isNullable: true
+----------------runtime---------------- :56934
+Program execution finished
+Job with JobID dc319e1b6075e8baa22895f99560031d has finished.
+Job Runtime: 56934 ms
+Accumulator Results: 
+- userVisit (java.lang.Integer): 94127711
+

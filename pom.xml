@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.intel.stream_benchmark</groupId>
-    <artifactId>stream_benchmark</artifactId>
+    <groupId>com.intel.streaming_benchmark</groupId>
+    <artifactId>streaming_benchmark</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>stream_benchmark_common</module>
-        <module>spark_benchmark</module>
-        <module>flink_benchmark</module>
+        <module>common</module>
+        <module>spark</module>
+        <module>flink</module>
         <module>dataGen</module>
     </modules>
 

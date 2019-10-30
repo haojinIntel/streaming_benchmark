@@ -1,0 +1,24 @@
+
+
+q7.sql  Runtime: 196478 TPS:0
+q1.sql  Runtime: 25569 TPS:2063554
+q7.sql  Runtime: 56559 TPS:1105728
+q7.sql  Runtime: 56536 TPS:1320070
+q7.sql  Runtime: 56422 TPS:1233514
+q1.sql  Runtime: 56725 TPS:2135848
+q1.sql  Runtime: 84616 TPS:1463391
+q1.sql  Runtime: 56491 TPS:2513087
+
+
+
+
+q1.sql  Runtime: 56836 TPS:2862703
+
+
+q1.sql  Runtime: 56861 TPS:2971764
+q1.sql  Runtime: 56809 TPS:3308034
+q1.sql  Runtime: 56739 TPS:3190940
+
+
+
+q1.sql  Runtime: 56689 TPS:3314232

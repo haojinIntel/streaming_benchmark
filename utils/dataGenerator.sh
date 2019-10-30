@@ -1,0 +1,1 @@
+nohup /opt/Beaver/jdk/bin/java -cp /home/streaming_benchmark/dataGen/target/dataGen-1.0-SNAPSHOT.jar com.intel.streaming_benchmark.Datagen /home/streaming_benchmark/conf/queryConfig 60 q5.sql /home/streaming_benchmark/conf/benchmarkConf.yaml >> /home/streaming_benchmark/flink/log/dataGen_q5.sql.log 2>&1 &

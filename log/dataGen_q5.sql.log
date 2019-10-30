@@ -1,0 +1,15 @@
+Starting execution of program
+root
+ |-- name: sessionId
+ |-- type: StringType
+ |-- isNullable: true
+ |-- name: len
+ |-- type: LongType
+ |-- isNullable: true
+----------------runtime---------------- :56870
+Program execution finished
+Job with JobID 4931fbfe87979641a2a7e8513ac3522f has finished.
+Job Runtime: 56870 ms
+Accumulator Results: 
+- userVisit (java.lang.Integer): 102340202
+

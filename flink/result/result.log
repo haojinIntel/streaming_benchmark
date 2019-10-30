@@ -1,0 +1,21 @@
+Finished time: 1572422397423; q1.sql  Runtime: 56590 TPS:3402218
+Finished time: 1572422470974; q2.sql  Runtime: 57740 TPS:340865
+Finished time: 1572422544731; q5.sql  Runtime: 56870 TPS:1827503
+Finished time: 1572423920747; q1.sql  Runtime: 56666 TPS:0
+Finished time: 1572423994275; q2.sql  Runtime: 57870 TPS:0
+Finished time: 1572424068036; q5.sql  Runtime: 56695 TPS:0
+
+
+Finished time: 2019-10-30 16:42:38; q1.sql  Runtime: 56 TPS:0
+Finished time: 2019-10-30 16:43:52; q2.sql  Runtime: 57 TPS:0
+Finished time: 2019-10-30 16:45:06; q5.sql  Runtime: 56 TPS:0
+Finished time: 2019-10-30 16:51:56; q1.sql  Runtime: 134 TPS:0
+Finished time: 2019-10-30 16:52:16; q1.sql  Runtime: 48 TPS:0
+Finished time: 2019-10-30 16:53:29; q1.sql  Runtime: 56 TPS:0
+Finished time: 2019-10-30 16:54:42; q2.sql  Runtime: 57 TPS:0
+Finished time: 2019-10-30 16:55:56; q5.sql  Runtime: 56 TPS:0
+Finished time: 2019-10-30 17:05:07; q1.sql  Runtime: 178 TPS:316069
+Finished time: 2019-10-30 17:05:51; q1.sql  Runtime: 21 TPS:2369847
+Finished time: 2019-10-30 17:07:14; q1.sql  Runtime: 56 TPS:3301378
+Finished time: 2019-10-30 17:08:27; q2.sql  Runtime: 57 TPS:318692
+Finished time: 2019-10-30 17:09:41; q5.sql  Runtime: 56 TPS:1680851

@@ -6,18 +6,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="flink_benchmark" />
-        <module name="spark_benchmark" />
-        <module name="dataGen" />
+        <module name="flink" />
         <module name="stream_benchmark_common" />
+        <module name="common" />
+        <module name="dataGen" />
+        <module name="spark" />
+        <module name="spark_benchmark" />
+        <module name="flink_benchmark" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="common" target="1.8" />
       <module name="dataGen" target="1.8" />
+      <module name="flink" target="1.8" />
       <module name="flink_benchmark" target="1.8" />
+      <module name="spark" target="1.8" />
       <module name="spark_benchmark" target="1.8" />
       <module name="stream_benchmark" target="1.8" />
       <module name="stream_benchmark_common" target="1.8" />
+      <module name="streaming_benchmark" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

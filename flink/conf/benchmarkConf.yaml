@@ -1,0 +1,2 @@
+streambench.flink.checkpointDuration     5000
+streambench.flink.timeType               EventTime

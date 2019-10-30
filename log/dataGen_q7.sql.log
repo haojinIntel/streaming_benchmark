@@ -1,0 +1,18 @@
+Starting execution of program
+root
+ |-- name: dt
+ |-- type: LongType
+ |-- isNullable: true
+ |-- name: h
+ |-- type: LongType
+ |-- isNullable: true
+ |-- name: total
+ |-- type: LongType
+ |-- isNullable: true
+----------------runtime---------------- :56422
+Program execution finished
+Job with JobID 5118303d8b0ecec3cc08bdcf4f107bcb has finished.
+Job Runtime: 56422 ms
+Accumulator Results: 
+- userVisit (java.lang.Integer): 69076824
+

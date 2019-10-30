@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/dataGen/dataGen.iml" filepath="$PROJECT_DIR$/dataGen/dataGen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flink/flink.iml" filepath="$PROJECT_DIR$/flink/flink.iml" />
       <module fileurl="file://$PROJECT_DIR$/flink_benchmark/flink_benchmark.iml" filepath="$PROJECT_DIR$/flink_benchmark/flink_benchmark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spark/spark.iml" filepath="$PROJECT_DIR$/spark/spark.iml" />
       <module fileurl="file://$PROJECT_DIR$/spark_benchmark/spark_benchmark.iml" filepath="$PROJECT_DIR$/spark_benchmark/spark_benchmark.iml" />
       <module fileurl="file://$PROJECT_DIR$/stream_benchmark.iml" filepath="$PROJECT_DIR$/stream_benchmark.iml" />
       <module fileurl="file://$PROJECT_DIR$/stream_benchmark_common/stream_benchmark_common.iml" filepath="$PROJECT_DIR$/stream_benchmark_common/stream_benchmark_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/streaming_benchmark.iml" filepath="$PROJECT_DIR$/streaming_benchmark.iml" />
     </modules>
   </component>
 </project>

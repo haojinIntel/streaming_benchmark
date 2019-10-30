@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>stream_benchmark</artifactId>
-        <groupId>com.intel.stream_benchmark</groupId>
+        <artifactId>streaming_benchmark</artifactId>
+        <groupId>com.intel.streaming_benchmark</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -27,8 +27,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.intel.stream_benchmark</groupId>
-            <artifactId>stream_benchmark_common</artifactId>
+            <groupId>com.intel.streaming_benchmark</groupId>
+            <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -112,8 +112,8 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>../stream_benchmark_common/src/main/scala</source>
-                                <source>../stream_benchmark_common/src/main/java</source>
+                                <source>../common/src/main/scala</source>
+                                <source>../common/src/main/java</source>
                                 <!-- 我们可以通过在这里添加多个source节点，来添加任意多个源文件夹 -->
                             </sources>
                         </configuration>

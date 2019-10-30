@@ -1,41 +1,67 @@
-# streaming_benchmark
-Streaming Benchmark is designed to measure the performance of stream processing system such as flink and spark. Two use cases are simulated (User Visit Session Analysis, Evaluation of Real-time Advertising). Raw data is generated and stored in Kafka. Streams map into streaming tables and queries act on these tables.
+# Streaming_benchmark
+Streaming Benchmark is designed to measure the performance of stream processing system such as flink and spark. Three use cases are simulated (User Visit Session Analysis, Evaluation of Real-time Advertising and Shopping Record Analysis). Raw data is generated and stored in Kafka. Streams map into streaming tables and queries act on these tables.
 
-# Building 
+## Building
+```
 mvn clean package
+```
+## Prerequisites
+You should have Apache Kafka, Apache zookeeper, Apache Spark and Blink installed in your cluster.
 
-# Prerequisites
-You should have Apache Kafka, Apache zookeeper and Blink installed in your cluster.
-
-# Setup
-You need to update conf/benchmarkConf.yaml (about kafka, zookeeper, flink and queries) and runList (queries you want to run)  and params.conf(to define running time and TPS).
-benchmarkConf.yaml
-
-streambench.flink.parallelism	2
-streambench.flink.bufferTimeout	10
-streambench.flink.checkpointDuration	5000
-streambench.zkHost	The configuration of zookeeper(ip1:port,ip2:port)
-streambench.kafka.brokerList	The configuration of kafka (ip1:port1, ip1:port2.)
-streambench.kafka.consumerGroup	Define the group name for consumer
-
-runLisit
+## Setup
+1. Clone the project into your master.
+2. Update conf/benchmarkConf.yaml (The properties of Kafka, Zookeeper, benchmark...)
+```
+streambench.zkHost                       ip1:2181,ip2:2181,ip3:2181...
+streambench.kafka.brokerList             ip1:port1,ip1:port2...
+streambench.kafka.consumerGroup          benchmark(default)
+streambench.dataGen.time                 100 (Running time of each query, unit is second)
+streambench.dataGen.throughput           10000 (The approximate number of messages produced per second)
+q1.sql                                   shopping (The tables query will used; When add a new query, please list all related table.) 
+q2.sql                                   click
+q3.sql                                   imp
+q4.sql                                   dau,click
+q5.sql                                   userVisit
+q6.sql                                   userVisit
+q7.sql                                   userVisit
+q8.sql                                   userVisit
+```
+3. Update flink/conf/benchmarkConf.yaml (The properties of flink)
+```
+streambench.flink.checkpointDuration     5000
+streambench.flink.timeType               EventTime(Use evenTime or processTime)
+```
+4. Update conf/kafkaHosts (The hosts where data will be generated; suggest to generate data on kafka node)
+```
+ip1
+ip2
+...
+```
+5. Update conf/runningQueries (The queries will be run)
+```
 q1.sql
 q2.sql
 q3.sql
-q4.sql
-q5.sql
+...
+```
+6. Update conf/params.conf
+```
+export DATAGEN_TIME=100 (Running time for each query; equalt to streambench.dataGen.time)
+export FLINK_HOME={FLINK_HOME}
+export SPARK_HOME={SPARK_HOME}
+```
+7. Copy the project to every node which will generate data (the same hosts in conf/kafkaHosts) and ensure that the master node can log in these hosts without password.
 
-Params.conf
-export DATAGEN_TIME=300	The running time of each queries(unit: second )
-export TPS=1000	The number of message generated per second. 
+## Run Benchmark
+Start zookeeper and kafka first.
+Run flink benchmark: `sh bin/runFlinkBenchmark.sh`
+Run spark benchmark: `sh bin/runSparkBenchmark.sh`
+Run both flink and spark benchmark: `sh bin/runAll.sh`
 
-# Run Benchmark
-Run bin/runBenchmark.sh  and you will get the result on result/result.log.
-
-# Result
-The format of result is just like “sqlName  Runtime:<value>  TPS:<value>
-result.log
-q1.sql  	Runtime: 305673	TPS:891
-q2.sql  	Runtime: 305920 	TPS:175
-q3.sql  	Runtime: 305663 	TPS:705
-
+## Result
+The results will be save on flink/result/result.log and spark/result/result.log and the format of result is just like below:
+```
+Finished time: 2019-10-30 19:07:26; q1.sql  Runtime: 58s TPS:10709265
+Finished time: 2019-10-30 19:08:37; q2.sql  Runtime: 57s TPS:8061793
+Finished time: 2019-10-30 19:09:51; q5.sql  Runtime: 57s TPS:4979921
+```

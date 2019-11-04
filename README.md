@@ -15,48 +15,39 @@ You should have Apache Kafka, Apache zookeeper, Apache Spark and Blink installed
 streambench.zkHost                       ip1:2181,ip2:2181,ip3:2181...
 streambench.kafka.brokerList             ip1:port1,ip1:port2...
 streambench.kafka.consumerGroup          benchmark(default)
-streambench.dataGen.time                 100 (Running time of each query, unit is second)
-streambench.dataGen.throughput           10000 (The approximate number of messages produced per second)
-q1.sql                                   shopping (The tables query will used; When add a new query, please list all related table.) 
-q2.sql                                   click
-q3.sql                                   imp
-q4.sql                                   dau,click
-q5.sql                                   userVisit
-q6.sql                                   userVisit
-q7.sql                                   userVisit
-q8.sql                                   userVisit
 ```
 3. Update flink/conf/benchmarkConf.yaml (The properties of flink)
 ```
 streambench.flink.checkpointDuration     5000
-streambench.flink.timeType               EventTime(Use evenTime or processTime)
+streambench.flink.timeType               EventTime(Use EventTime or ProcessTime)
 ```
-4. Update conf/kafkaHosts (The hosts where data will be generated; suggest to generate data on kafka node)
+4. Update conf/dataGenHosts (The hosts where data will be generated; suggest to generate data on kafka node)
 ```
 ip1
 ip2
 ...
 ```
-5. Update conf/runningQueries (The queries will be run)
+5. Update conf/queriesToRun (The queries will be run)
 ```
 q1.sql
 q2.sql
 q3.sql
 ...
 ```
-6. Update conf/params.conf
+6. Update conf/env
 ```
-export DATAGEN_TIME=100 (Running time for each query; equalt to streambench.dataGen.time)
+export DATAGEN_TIME=100 (Running time for each query)
+export TPS=10000(Throughput)
 export FLINK_HOME={FLINK_HOME}
 export SPARK_HOME={SPARK_HOME}
 ```
-7. Copy the project to every node which will generate data (the same hosts in conf/kafkaHosts) and ensure that the master node can log in these hosts without password.
+7. Copy the project to every node which will generate data (the same hosts in conf/dataGenHosts) and ensure that the master node can log in these hosts without password.
 
 ## Run Benchmark
-Start zookeeper and kafka first.
-Run flink benchmark: `sh bin/runFlinkBenchmark.sh`
-Run spark benchmark: `sh bin/runSparkBenchmark.sh`
-Run both flink and spark benchmark: `sh bin/runAll.sh`
+Start Zookeeper, kafka, Spark, Blink first.
+Run flink benchmark: `sh bin/runFlinkBenchmark.sh`.
+Run spark benchmark: `sh bin/runSparkBenchmark.sh`.
+Run both flink and spark benchmark: `sh bin/runAll.sh`.
 
 ## Result
 The results will be save on flink/result/result.log and spark/result/result.log and the format of result is just like below:

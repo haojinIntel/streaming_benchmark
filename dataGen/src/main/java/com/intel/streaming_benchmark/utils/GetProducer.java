@@ -7,10 +7,6 @@ import com.intel.streaming_benchmark.common.StreamBenchConfig;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
@@ -38,7 +34,7 @@ public class GetProducer extends Thread{
         if (topic.equals("Shopping_record")){
             datagenTopic1(cl);
         }
-        else if(topic.equals("Ad_serving_record")){
+        else if(topic.equals("Real_time_Advertising")){
             datagenTopic2(cl);
         }
         else if(topic.equals("User_visit_session_record")){
@@ -56,7 +52,6 @@ public class GetProducer extends Thread{
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, cl.getProperty(StreamBenchConfig.KAFKA_BROKER_LIST));
         return new KafkaProducer<>(properties);
-
     }
 
     private void datagenTopic1(ConfigLoader cl) {
@@ -76,28 +71,12 @@ public class GetProducer extends Thread{
             InetAddress address = InetAddress.getLocalHost();
             String hostName = address.getHostName().toString();
             while(flag){
-//            byte[] message = (UUID.randomUUID().toString().replace("-", "") + "," + commodities[random.nextInt(commodities.length)] + "," + System.currentTimeMillis()).getBytes();
                 byte[] message = (hostName + "_" + count + "_" + threadName + "," +  commodities[random.nextInt(commodities.length)] +"," + System.currentTimeMillis()).getBytes();
                 producer.send(new ProducerRecord("shopping", message));
                 count = count + 1;
                 totalLength = totalLength + message.length;
                 if((System.currentTimeMillis() - start) > time*1000){
                     flag = false;
-                    File resultFile = new File( "/home/streaming_benchmark/result/kafkaProducer.log" );
-
-                    try {
-                        if (!resultFile.exists()) {
-                            resultFile.createNewFile();
-                        }
-                        FileWriter fileWriter = new FileWriter("/home/streaming_benchmark/result/kafkaProducer.log" , true);
-                        BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-                        bufferWriter.write(Thread.currentThread().getName() + "Topic1  Runtime: " + time + " Count:" + count +  "; Total data: " + totalLength + "B" +"\r\n");
-                        bufferWriter.close();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-
-
                 }
             }
         }catch (Exception e){
@@ -112,7 +91,6 @@ public class GetProducer extends Thread{
         Long totalLength = 0L;
 
         KafkaProducer producer = createProducer(cl);
-//        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long start = System.currentTimeMillis();
         Boolean flag = true;
 
@@ -164,14 +142,6 @@ public class GetProducer extends Thread{
 
                 if((System.currentTimeMillis() - start) > time*1000){
                     flag = false;
-                    File resultFile = new File( "/home/streaming_benchmark/result/kafkaProducer.log" );
-                    if (!resultFile.exists()) {
-                        resultFile.createNewFile();
-                    }
-                    FileWriter fileWriter = new FileWriter("/home/streaming_benchmark/result/kafkaProducer.log" , true);
-                    BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-                    bufferWriter.write(Thread.currentThread().getName() + "Topic2  Runtime: " + time + " Count:" + count +  "; Total data: " + totalLength + "B" +"\r\n");
-                    bufferWriter.close();
                 }
 
             }catch (Exception e){

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+BASE_HOME=$(cd `dirname $0`;pwd)
+BENCH_HOME=$(dirname $BASE_HOME)
+
+export DATAGEN_TIME=60
+export TPS=10000
+export CONF=$BENCH_HOME/conf/benchmarkConf.yaml
+export FLINK_HOME=/opt/Beaver/flink
+export SPARK_HOME=/opt/Beaver/spark
+export SQL_CONFIG_PATH=$BENCH_HOME/conf/queryConfig

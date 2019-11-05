@@ -8,7 +8,6 @@ import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.tuple.*;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -17,9 +16,8 @@ import org.apache.flink.streaming.api.watermark.Watermark;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableConfig;
-import org.apache.flink.table.api.TableSchema;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
-import org.apache.flink.table.sinks.csv.RetractCsvTableSink;
+import org.apache.flink.types.Row;
 import org.apache.flink.util.Collector;
 import org.json.JSONObject;
 import javax.annotation.Nullable;
@@ -48,7 +46,7 @@ public class Benchmark {
         conf.consumerGroup = cl.getProperty(StreamBenchConfig.CONSUMER_GROUP);
         conf.checkpointDuration = Long.parseLong(cl.getProperty(StreamBenchConfig.FLINK_CHECKPOINTDURATION));
         conf.timeType = cl.getProperty(StreamBenchConfig.FLINK_TIMETYPE);
-        conf.topic = cl.getProperty(args[1]);
+        conf.topic = QueryConfig.getTables(args[1]);
         conf.sqlLocation = benchmarkConfDir + "/../flink/query";
         conf.resultLocation = benchmarkConfDir + "/../flink/result";
         conf.sqlName = args[1];
@@ -71,7 +69,6 @@ public class Benchmark {
         properties.setProperty("zookeeper.connect", config.zkHost);
         properties.setProperty("group.id", config.consumerGroup);
         properties.setProperty("bootstrap.servers", config.brokerList);
-//        properties.setProperty("auto.offset.reset", config.offsetReset);
 
         String[] topics =  config.topic.split(",");
 
@@ -80,15 +77,11 @@ public class Benchmark {
             // source stream
             FlinkKafkaConsumer010<String> consumer = new FlinkKafkaConsumer010<String>(topics[i], new SimpleStringSchema(),properties);
             consumer.setStartFromLatest();
-//            consumer.setStartFromGroupOffsets();
 //            consumer.setStartFromEarliest();
             //add stream source for flink
             DataStream<String> stream = env.addSource(consumer);
-//            stream.print();
-
             // stream parse  need table schema
-            String[] fieldTypes = TpcDsSchemaProvider.getSchema(topics[i]).getFieldTypes();
-            String[] fieldNames = TpcDsSchemaProvider.getSchema(topics[i]).getFieldNames();
+            String[] fieldNames = TableSchemaProvider.getSchema(topics[i]).getFieldNames();
             //  TypeInformation returnType = TypeExtractor.createTypeInfo();
             DataStream streamParsed;
 
@@ -125,19 +118,8 @@ public class Benchmark {
                 }
             }
 
-//            streamParsed.addSink(new SinkFunction() {
-//                @Override
-//                public void invoke(Object value, Context context) throws Exception {
-//
-//                }
-//            });
-
             tableEnv.registerTable(topics[i], tableEnv.fromDataStream(streamParsed, FieldString(fieldNames, config.timeType)));
         }
-
-        // define sink
-        String sinkFile = config.resultLocation + "/" + config.sqlName +".csv";
-        RetractCsvTableSink sink = new RetractCsvTableSink(sinkFile, ",",100, FileSystem.WriteMode.OVERWRITE);
 
         //runQuery
         File file = new File(config.sqlLocation + "/" + config.sqlName);
@@ -147,14 +129,9 @@ public class Benchmark {
         try {
             String queryString = DateUtils.fileToString(file);
             Table table = tableEnv.sqlQuery(queryString);
-//            table.collectSink(new CollectTableSink<DataType>(new ArrayType{ByteType, FloatType}));
-
-            TableSchema schema = table.getSchema();
             table.printSchema();
-//            table.collect();
-            table.writeToSink(sink);
-//            DataStream<Tuple2<Boolean, Tuple>> tuple2DataStream = tableEnv.toRetractStream(table, Types.TUPLE(Types.STRING, Types.LONG, Types.SQL_TIMESTAMP, Types.SQL_TIMESTAMP, Types.LONG));
-//            tuple2DataStream.print();
+            DataStream<Tuple2<Boolean, Row>> tuple2DataStream = tableEnv.toRetractStream(table, Row.class);
+            tuple2DataStream.print();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,14 +164,14 @@ public class Benchmark {
         if(timeType.equals("EventTime")){
             fileds = fileds + "rowtime.rowtime";
         }else{
-            fileds = fileds + "proctime.proctime";
+            fileds = fileds + "rowtime.proctime";
         }
         return fileds;
     }
 
     public static class ShoppingWatermarks implements AssignerWithPeriodicWatermarks<Tuple3<String, String,Long>> {
         Long currentMaxTimestamp = 0L;
-        final Long maxOutOfOrderness = 2000L;// ??????????10s
+        final Long maxOutOfOrderness = 2000L;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         @Nullable
@@ -215,7 +192,7 @@ public class Benchmark {
 
     public static class ClickWatermarks implements AssignerWithPeriodicWatermarks<Tuple6<Long,String, String,String, String, String>> {
         Long currentMaxTimestamp = 0L;
-        final Long maxOutOfOrderness = 2000L;// ??????????10s
+        final Long maxOutOfOrderness = 2000L;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         @Nullable
@@ -236,7 +213,7 @@ public class Benchmark {
 
     public static class ImpWatermarks implements AssignerWithPeriodicWatermarks<Tuple7<Long, String, String, String, String, Double, String>> {
         Long currentMaxTimestamp = 0L;
-        final Long maxOutOfOrderness = 2000L;// ??????????10s
+        final Long maxOutOfOrderness = 2000L;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         @Nullable
@@ -257,7 +234,7 @@ public class Benchmark {
 
     public static class DauWatermarks implements AssignerWithPeriodicWatermarks<Tuple2<Long,String>> {
         Long currentMaxTimestamp = 0L;
-        final Long maxOutOfOrderness = 2000L;// ??????????10s
+        final Long maxOutOfOrderness = 2000L;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         @Nullable
@@ -278,7 +255,7 @@ public class Benchmark {
 
     public static class UserVisitWatermarks implements AssignerWithPeriodicWatermarks<Tuple13<String, Long, String, Long, Long, String, String, String, String, String, String, String, Integer>> {
         Long currentMaxTimestamp = 0L;
-        final Long maxOutOfOrderness = 2000L;// ??????????10s
+        final Long maxOutOfOrderness = 2000L;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         @Nullable
@@ -425,6 +402,5 @@ public class Benchmark {
             collector.collect(tuple);
         }
     }
-
 
 }

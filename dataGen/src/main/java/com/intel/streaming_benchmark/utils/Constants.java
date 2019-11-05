@@ -4,7 +4,7 @@ package com.intel.streaming_benchmark.utils;
  * Project Basic dataUtil.Constants
  */
 public interface Constants {
-    // category/product id 分割字符串
+
     String SPLIT_CATEGORY_OR_PRODUCT_ID_SEPARATOR = "|";
     String SPLIT_CATEGORY_OR_PRODUCT_ID_SEPARATOR_ESCAOE = "\\|";
 

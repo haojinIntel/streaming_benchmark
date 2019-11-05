@@ -1,6 +1,8 @@
 SELECT
-      sessionId, MAX(TO_UNIX_TIMESTAMP(actionTime, 'yyyy-MM-dd HH:mm:ss'))-MIN(TO_UNIX_TIMESTAMP(actionTime, 'yyyy-MM-dd HH:mm:ss')) as len,  DAYOFMONTH(CAST(actionTime AS TIMESTAMP)) as dt, HOUR(CAST(actionTime AS TIMESTAMP)) as h, sum(MAX(TO_UNIX_TIMESTAMP(actionTime, 'yyyy-MM-dd HH:mm:ss'))-MIN(TO_UNIX_TIMESTAMP(actionTime, 'yyyy-MM-dd HH:mm:ss'))) num
+        WINDOW(actionTime, '10 seconds').start starts, WINDOW(actionTime, '10 seconds').end finish , cityId, payProductIds
 FROM
-      userVisit
+        userVisit
+WHERE
+        payProductIds IS NOT NULL
 GROUP BY
-      sessionId, DAYOFMONTH(CAST(actionTime AS TIMESTAMP)), HOUR(CAST(actionTime AS TIMESTAMP)), WINDOW(actionTime, '10 seconds')
+        cityId, payProductIds, WINDOW(actionTime, '10 seconds')

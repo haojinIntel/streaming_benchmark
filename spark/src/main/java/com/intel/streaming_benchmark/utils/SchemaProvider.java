@@ -13,7 +13,7 @@ public class SchemaProvider {
         if(topic.equals("shopping")){
             type = type.add("userID", DataTypes.StringType)
                     .add("commodity", DataTypes.StringType)
-                    .add("times", DataTypes.TimestampType);;
+                    .add("times", DataTypes.TimestampType);
         }else if(topic.equals("click")){
             type = type.add("click_time", DataTypes.TimestampType)
                     .add("strategy", DataTypes.StringType)

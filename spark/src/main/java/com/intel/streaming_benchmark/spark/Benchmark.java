@@ -1,9 +1,6 @@
 package com.intel.streaming_benchmark.spark;
 
-import com.intel.streaming_benchmark.common.BenchLogUtil;
-import com.intel.streaming_benchmark.common.ConfigLoader;
-import com.intel.streaming_benchmark.common.DateUtils;
-import com.intel.streaming_benchmark.common.StreamBenchConfig;
+import com.intel.streaming_benchmark.common.*;
 import com.intel.streaming_benchmark.utils.SchemaProvider;
 import com.intel.streaming_benchmark.utils.SparkBenchConfig;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -14,6 +11,7 @@ import org.apache.spark.sql.RowFactory;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder;
 import org.apache.spark.sql.streaming.StreamingQuery;
+import org.apache.spark.sql.streaming.Trigger;
 import org.apache.spark.util.LongAccumulator;
 import org.json.JSONObject;
 import java.io.BufferedWriter;
@@ -29,21 +27,19 @@ public class Benchmark {
 
         ConfigLoader cl = new ConfigLoader(args[0]);
         String benchmarkConfDir = new File(args[0]).getParent();
-
         //spark config
         String sparkConf = benchmarkConfDir + "/../spark/conf/benchmarkConf.yaml";
         cl.merge(sparkConf);
-
         // Prepare configuration
         SparkBenchConfig conf = new SparkBenchConfig();
         conf.brokerList = cl.getProperty(StreamBenchConfig.KAFKA_BROKER_LIST);
         conf.zkHost = cl.getProperty(StreamBenchConfig.ZK_HOST);
         conf.consumerGroup = cl.getProperty(StreamBenchConfig.CONSUMER_GROUP);
-        conf.topic = cl.getProperty(args[1]);
+        conf.topic = QueryConfig.getTables(args[1]);
         conf.sqlLocation = benchmarkConfDir + "/../spark/query";
         conf.resultLocation = benchmarkConfDir + "/../spark/result";
         conf.sqlName = args[1];
-        conf.runTime = Integer.valueOf(cl.getProperty(StreamBenchConfig.DATAGEN_TIME));
+        conf.runTime = Integer.valueOf(args[2]);
         runQuery(conf);
     }
 
@@ -88,9 +84,7 @@ public class Benchmark {
                                 List<Row> rows = new ArrayList<>();
                                 while (input.hasNext()) {
                                     longAccumulator.add(1);
-//                    Row next = input.next();
                                     JSONObject obj = new JSONObject(input.next().getString(0));
-//                    String[] split = next.getString(0).split(",");
                                     rows.add(RowFactory.create(Timestamp.valueOf(DateUtils.parseLong2String(obj.getLong("click_time"))), obj.getString("strategy"), obj.getString("site"), obj.getString("pos_id"), obj.getString("poi_id"), obj.getString("device_id")));
                                 }
                                 return rows.iterator();
@@ -153,7 +147,7 @@ public class Benchmark {
         try {
             String queryString = DateUtils.fileToString(file);
             Dataset<Row> sql = spark.sql(queryString);
-            StreamingQuery start = sql.writeStream().outputMode("append").format("console").start();
+            StreamingQuery start = sql.writeStream().outputMode("append").format("console").trigger(Trigger.ProcessingTime("30 seconds")).start();
             start.awaitTermination(config.runTime * 1000);
             System.out.println("2 Total number: " +  longAccumulator.value());
 

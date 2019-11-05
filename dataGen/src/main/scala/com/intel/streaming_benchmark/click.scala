@@ -1,34 +1,32 @@
 package com.intel.streaming_benchmark
 
 import java.util.Random
-import java.util.concurrent.ThreadLocalRandom
 
 
 object click {
 
-//  val random = ThreadLocalRandom.current()
   val random = new Random
   val splitSymbol = ","
-  // 用户数量
+
   val userNumbers = 1000
-  // 用户每天访问的会话数量上限(100万)
+
   val userVisitSessionNumbers = 10000
-  // 商品数量（100万）
+
   val productNumbers = 10000
-  // 商品品类数量(50个)
+
   val productCategoryNumbers = 50
-  // 职业
-  val professionals = Array("程序员", "教师", "厨师", "司机", "医生", "护士", "设计师", "农民", "工人", "助理")
+
+  val professionals = Array("Programmer", "Teacher", "Cook", "Driver", "Doctor", "Nurse", "Designer", "Farmer", "Worker", "Assistant")
   val professionalTypeSize = professionals.length
-  // 城市列表,格式为:(0,上海),(1,北京)....
-  val citys: Array[(Int, String)] = Array("上海", "北京", "深圳", "广州", "南京", "杭州", "长沙", "南昌", "张家界", "香港", "澳门").zipWithIndex.map(_.swap)
+
+  val citys: Array[(Int, String)] = Array("Shanghai", "Beijing", "Shenzhen", "Guangzhou", "Nanjing", "Hangzhou", "Changsha", "Nanchang", "Zhangjiajie", "Hong Kong", "Macao").zipWithIndex.map(_.swap)
   val cityTypeSize = citys.length
-  // 性别列表
+
   val sexs = Array("male", "female", "unknown")
   val sexTypeSize = sexs.length
-  // 搜索关键词
-  val keywords = Array("火锅", "蛋糕", "重庆辣子鸡", "重庆小面",
-    "呷哺呷哺", "新辣道鱼火锅", "国贸大厦", "太古商场", "日本料理", "温泉")
+  // search key word
+  val keywords = Array("Hot Pot", "Cake", "Chongqing spicy chicken", "Chongqing facet",
+    "Biscuits", "Fish", "International Trade Building or Cetra Building", "Pacific Mall", "Japanese cuisine", "Hot Spring")
   val keywordSize = keywords.length
 
   var count = 0
@@ -41,7 +39,7 @@ case class ProductInfo(
                         extendInfo: String
                       ) {
   /**
-    * 格式化
+    * Format
     *
     * @param splitSymbol
     * @return
@@ -53,12 +51,12 @@ case class ProductInfo(
 
 object ProductInfo {
   /**
-    * 表列名称
+    * column name of the table
     */
   val columnNames = Array("product_id", "product_name", "extend_info")
 
   /**
-    * 解析行数据，并返回对象；如果解析失败返回None
+    * Parse row data and return the object; if parsing fails return None
     *
     * @param line
     * @param splitSymbol
@@ -90,7 +88,7 @@ case class UserInfo(
                      sex: String
                    ) {
   /**
-    * 格式化时间
+    * Format time
     *
     * @param splitSymbol
     * @return
@@ -102,12 +100,12 @@ case class UserInfo(
 
 object UserInfo {
   /**
-    * 表列明
+    * column name of the table
     */
   val columnNames = Array("user_id", "user_name", "name", "age", "professional", "city", "sex")
 
   /**
-    * 解析行数据，并返回对象；如果解析失败返回None
+    * Parse row data and return the object; if parsing fails return None
     *
     * @param line
     * @param splitSymbol
@@ -146,7 +144,7 @@ case class UserVisitAction(
                             cityId: Int
                           ) {
   /**
-    * 格式化时间
+    * Format time
     *
     * @param splitSymbol
     * @return
@@ -158,12 +156,12 @@ case class UserVisitAction(
 
 object UserVisitAction {
   /**
-    * 表列名称
+    * column name of the table
     */
   val columnNames = Array("date", "user_id", "session_id", "page_id", "action_time", "search_keyword", "click_category_id", "click_product_id", "order_category_ids", "order_product_ids", "pay_category_ids", "pay_product_ids", "city_id")
 
   /**
-    * 解析行数据，并返回对象；如果解析失败返回None
+    * Parse row data and return the object; if parsing fails return None
     *
     * @param line
     * @param splitSymbol

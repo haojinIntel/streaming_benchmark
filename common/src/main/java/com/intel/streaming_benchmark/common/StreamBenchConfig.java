@@ -36,15 +36,7 @@ public class StreamBenchConfig {
 
   public static String DATAGEN_THROUGHPUT = "streambench.dataGen.throughput";
 
-  // =====================================
-  // TestCase related
-  // =====================================
-  // TODO: Once we remove all sample testcases, this config could be removed.
-//  public static String SAMPLE_PROBABILITY = "hibench.streambench.sampleProbability";
-//
-//  public static String FixWINDOW_DURATION = "hibench.streambench.fixWindowDuration";
-//
-//  public static String FixWINDOW_SLIDESTEP = "hibench.streambench.fixWindowSlideStep";
+
 
   // =====================================
   // Data Generator Related Conf
@@ -78,7 +70,7 @@ public class StreamBenchConfig {
   // ======================================
   // Flink Related Conf
   // ======================================
-//  public static String FLINK_BUFFERTIMEOUT = "hibench.streambench.flink.bufferTimeout";
+
 
   public static String FLINK_CHECKPOINTDURATION = "streambench.flink.checkpointDuration";
 
@@ -86,23 +78,6 @@ public class StreamBenchConfig {
 
   public static String FLINK_TIMETYPE = "streambench.flink.timeType";
 
-  // ======================================
-  // Storm Related Conf
-  // ======================================
-//  public static String STORM_WORKERCOUNT = "hibench.streambench.storm.worker_count";
-//  public static String STORM_SPOUT_THREADS = "hibench.streambench.storm.spout_threads";
-//  public static String STORM_BOLT_THREADS = "hibench.streambench.storm.bolt_threads";
-//  public static String STORM_ACKON = "hibench.streambench.storm.ackon";
-//  public static String STORM_LOCAL_SHUFFLE = "hibench.streambench.storm.localshuffle";
-
-  // =====================================
-  // Gearpump Related Conf
-  // =====================================
-//  public static String GEARPUMP_PARALLELISM = "hibench.streambench.gearpump.parallelism";
-
-  // =====================================
-  // Query Related Conf
-  // =====================================
 
   public static String SQL_LOCATION= "streambench.flink.sqlLocation";
 

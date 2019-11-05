@@ -1,10 +1,10 @@
 SELECT
-       a.device_id, a.strategy, a.site, a.pos_id, b.var1, count(*)
+       b.device_id, a.strategy, a.site, a.pos_id, count(b.device_id)
 FROM
-       (SELECT device_id, strategy, site, pos_id FROM click) a
+        click a
 JOIN
-       (SELECT device_id, dau_time as var1 FROM dau) b
+        dau b
 ON
-       a.device_id = b.device_id
+        a.device_id = b.device_id AND a.click_time BETWEEN b.dau_time - INTERVAL 1 second AND b.dau_time + INTERVAL 1 second
 GROUP BY
-       a.device_id, a.strategy, a.site, a.pos_id, b.var1
+        b.device_id, a.strategy, a.site, a.pos_id, WINDOW(a.click_time, '10 seconds')

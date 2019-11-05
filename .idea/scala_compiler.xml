@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ScalaCompilerConfiguration">
-    <profile name="Maven 1" modules="common,dataGen,flink,flink_benchmark,spark,stream_benchmark_common" />
-  </component>
-</project>

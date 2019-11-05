@@ -11,5 +11,3 @@ WHERE
       a.len < 100
 GROUP BY
       a.dt, a.h
-
-

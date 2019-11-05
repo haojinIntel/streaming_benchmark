@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.Random;
 
-
 public class GetProducer extends Thread{
 
     private String topic;
@@ -104,7 +103,6 @@ public class GetProducer extends Thread{
         while(flag){
 
             try{
-
                 JSONObject imp = new JSONObject();
                 imp.put("imp_time",Long.valueOf(System.currentTimeMillis()));
                 imp.put("strategy",strategy_all[random.nextInt(strategy_all.length-1)]);
@@ -139,7 +137,6 @@ public class GetProducer extends Thread{
                         totalLength = totalLength + dau_message.length;
                     }
                 }
-
                 if((System.currentTimeMillis() - start) > time*1000){
                     flag = false;
                 }

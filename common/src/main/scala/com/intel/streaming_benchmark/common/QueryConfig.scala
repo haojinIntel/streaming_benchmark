@@ -9,7 +9,11 @@ object QueryConfig {
     "q5.sql" -> "User_visit_session_record",
     "q6.sql" -> "User_visit_session_record",
     "q7.sql" -> "User_visit_session_record",
-    "q8.sql" -> "User_visit_session_record"
+    "q8.sql" -> "User_visit_session_record",
+    "q9.sql" -> "Real_time_Advertising",
+    "q10.sql" -> "User_visit_session_record",
+    "q11.sql" -> "User_visit_session_record",
+    "q12.sql" -> "User_visit_session_record"
   )
 
   val queryTables: Map[String, String] = Map(
@@ -20,7 +24,11 @@ object QueryConfig {
     "q5.sql" -> "userVisit",
     "q6.sql" -> "userVisit",
     "q7.sql" -> "userVisit",
-    "q8.sql" -> "userVisit"
+    "q8.sql" -> "userVisit",
+    "q9.sql" -> "dau,click",
+    "q10.sql" -> "userVisit",
+    "q11.sql" -> "userVisit",
+    "q12.sql" -> "userVisit"
   )
 
   def getScene(query: String): String ={

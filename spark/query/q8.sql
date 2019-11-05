@@ -5,4 +5,4 @@ FROM
 WHERE
         clickCategoryId IS NOT NULL
 GROUP BY
-        WINDOW(actionTime, '10 seconds')
+        cityId, WINDOW(actionTime, '10 seconds')

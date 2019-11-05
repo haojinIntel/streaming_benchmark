@@ -7,7 +7,7 @@ case class Column(
 
 )
 
-trait TcpDsSchema extends Schema {
+trait TableSchema extends Schema {
 
   val columns: Array[Column]
 
@@ -18,7 +18,7 @@ trait TcpDsSchema extends Schema {
 
 }
 
-object Shopping extends TcpDsSchema {
+object Shopping extends TableSchema {
 
   override val columns = Array[Column](
     Column("userId", 0, "String"),
@@ -27,7 +27,7 @@ object Shopping extends TcpDsSchema {
   )
 }
 
-object Click extends TcpDsSchema {
+object Click extends TableSchema {
 
   override val columns = Array[Column](
     Column("click_time", 0, "Long"),
@@ -39,7 +39,7 @@ object Click extends TcpDsSchema {
   )
 }
 
-object Imp extends TcpDsSchema {
+object Imp extends TableSchema {
 
   override val columns = Array[Column](
     Column("imp_time", 0, "Long"),
@@ -52,7 +52,7 @@ object Imp extends TcpDsSchema {
   )
 }
 
-object Dau extends TcpDsSchema {
+object Dau extends TableSchema {
 
   override val columns = Array[Column](
     Column("dau_time", 0, "Long"),
@@ -60,7 +60,7 @@ object Dau extends TcpDsSchema {
   )
 }
 
-object UserVisit extends TcpDsSchema {
+object UserVisit extends TableSchema {
 
   override val columns = Array[Column](
     Column("date", 0, "String"),

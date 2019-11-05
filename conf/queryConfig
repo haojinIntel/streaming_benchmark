@@ -1,9 +1,0 @@
-#query                   scene
-q1.sql                   Shopping_record
-q2.sql                   Ad_serving_record
-q3.sql                   Ad_serving_record
-q4.sql                   Ad_serving_record
-q5.sql                   User_visit_session_record
-q6.sql                   User_visit_session_record
-q7.sql                   User_visit_session_record
-q8.sql                   User_visit_session_record

@@ -6,7 +6,7 @@ Streaming Benchmark is designed to measure the performance of stream processing 
 mvn clean package
 ```
 ## Prerequisites
-You should have Apache Kafka, Apache zookeeper, Apache Spark and Blink installed in your cluster.
+You should have Apache Kafka, Apache zookeeper, Apache Spark and Flink-1.9 installed in your cluster.
 
 ## Setup
 1. Clone the project into your master.
@@ -44,7 +44,7 @@ export SPARK_HOME={SPARK_HOME}
 7. Copy the project to every node which will generate data (the same hosts in conf/dataGenHosts) and ensure that the master node can log in these hosts without password.
 
 ## Run Benchmark
-Start Zookeeper, kafka, Spark, Blink first.
+Start Zookeeper, kafka, Spark, Flink first.
 Run flink benchmark: `sh bin/runFlinkBenchmark.sh`.
 Run spark benchmark: `sh bin/runSparkBenchmark.sh`.
 Run both flink and spark benchmark: `sh bin/runAll.sh`.

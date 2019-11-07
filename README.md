@@ -37,7 +37,7 @@ q3.sql
 6. Update conf/env
 ```
 export DATAGEN_TIME=100 (Running time for each query)
-export TPS=10000(Throughput)
+export THREAD_PER_NODE=10(The number of thread to generate data for per node.)
 export FLINK_HOME={FLINK_HOME}
 export SPARK_HOME={SPARK_HOME}
 ```

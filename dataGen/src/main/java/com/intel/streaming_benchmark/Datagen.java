@@ -14,9 +14,6 @@ public class Datagen {
         //the time to generate data
         Long time = Long.valueOf(args[0]);
         System.out.println("------------------time: " + time + "s-------------------");
-        //The number of message per second generate
-        int num = Integer.valueOf(args[1]);
-        System.out.println("------------------Throughput:" + num + "----------------");
         //the topic of Kafka
         String sqlName = args[2];
         System.out.println("------------------sql: " + sqlName + "------------------");
@@ -25,7 +22,8 @@ public class Datagen {
         ConfigLoader configLoader = new ConfigLoader(args[3]);
         System.out.println("------------------config: " + args[3] + "---------------");
         //the number of thread for datagen
-        int producerNumber = num / 1000;
+        int producerNumber = Integer.valueOf(args[1]);
+        System.out.println("----------Thread_per_node:" + producerNumber + "--------");
         ExecutorService pool = Executors.newFixedThreadPool(producerNumber);
         for(int i = 0; i < producerNumber; i++){
             pool.execute(new GetProducer(scene, time, configLoader));

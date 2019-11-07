@@ -13,7 +13,7 @@ import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder;
 import org.apache.spark.sql.streaming.StreamingQuery;
 import org.apache.spark.sql.streaming.Trigger;
 import org.apache.spark.util.LongAccumulator;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -84,7 +84,8 @@ public class Benchmark {
                                 List<Row> rows = new ArrayList<>();
                                 while (input.hasNext()) {
                                     longAccumulator.add(1);
-                                    JSONObject obj = new JSONObject(input.next().getString(0));
+                                    JSONObject obj = JSONObject.parseObject(input.next().getString(0));
+           //                         JSONObject obj = new JSONObject(input.next().getString(0));
                                     rows.add(RowFactory.create(Timestamp.valueOf(DateUtils.parseLong2String(obj.getLong("click_time"))), obj.getString("strategy"), obj.getString("site"), obj.getString("pos_id"), obj.getString("poi_id"), obj.getString("device_id")));
                                 }
                                 return rows.iterator();
@@ -98,7 +99,8 @@ public class Benchmark {
                                 List<Row> rows = new ArrayList<>();
                                 while (input.hasNext()) {
                                     longAccumulator.add(1);
-                                    JSONObject obj = new JSONObject(input.next().getString(0));
+                                    JSONObject obj = JSONObject.parseObject(input.next().getString(0));
+           //                         JSONObject obj = new JSONObject(input.next().getString(0));
                                     rows.add(RowFactory.create(Timestamp.valueOf(DateUtils.parseLong2String(obj.getLong("imp_time"))), obj.getString("strategy"), obj.getString("site"), obj.getString("pos_id"), obj.getString("poi_id"), obj.getDouble("cost"), obj.getString("device_id")));
                                 }
                                 return rows.iterator();
@@ -112,7 +114,8 @@ public class Benchmark {
                                 List<Row> rows = new ArrayList<>();
                                 while (input.hasNext()) {
                                     longAccumulator.add(1);
-                                    JSONObject obj = new JSONObject(input.next().getString(0));
+                                    JSONObject obj = JSONObject.parseObject(input.next().getString(0));
+           //                         JSONObject obj = new JSONObject(input.next().getString(0));
                                     rows.add(RowFactory.create(Timestamp.valueOf(DateUtils.parseLong2String(obj.getLong("dau_time"))), obj.getString("device_id")));
                                 }
                                 return rows.iterator();

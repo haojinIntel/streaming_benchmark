@@ -1,5 +1,6 @@
 package com.intel.streaming_benchmark.flink;
 
+import com.alibaba.fastjson.JSON;
 import com.intel.streaming_benchmark.common.*;
 import com.intel.streaming_benchmark.utils.FlinkBenchConfig;
 import org.apache.flink.api.common.JobExecutionResult;
@@ -14,12 +15,13 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableConfig;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.types.Row;
 import org.apache.flink.util.Collector;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 import javax.annotation.Nullable;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -63,7 +65,8 @@ public class Benchmark {
         }
 
         TableConfig tc = new TableConfig();
-        StreamTableEnvironment tableEnv = new StreamTableEnvironment(env, tc);
+        EnvironmentSettings builder = EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env,builder);
 
         Properties properties = new Properties();
         properties.setProperty("zookeeper.connect", config.zkHost);
@@ -307,7 +310,8 @@ public class Benchmark {
         @Override
         public void flatMap(String input, Collector<Tuple6<Long, String, String, String, String, String>> collector) throws Exception {
             this.click.add(1);
-            JSONObject obj = new JSONObject(input);
+            JSONObject obj = JSON.parseObject(input);
+//            JSONObject obj = new JSONObject(input);
             Tuple6<Long, String, String, String, String, String> tuple = new Tuple6<>(
                     obj.getLong("click_time"),
                     obj.getString("strategy"),
@@ -333,7 +337,8 @@ public class Benchmark {
         @Override
         public void flatMap(String input, Collector<Tuple7<Long, String, String, String, String, Double, String>> collector) throws Exception {
             this.imp.add(1);
-            JSONObject obj = new JSONObject(input);
+            JSONObject obj = JSON.parseObject(input);
+//            JSONObject obj = new JSONObject(input);
             Tuple7<Long, String, String, String, String, Double, String> tuple = new Tuple7<>(
                     obj.getLong("imp_time"),
                     obj.getString("strategy"),
@@ -360,7 +365,8 @@ public class Benchmark {
         @Override
         public void flatMap(String input, Collector<Tuple2<Long, String>> collector) throws Exception {
             this.dau.add(1);
-            JSONObject obj = new JSONObject(input);
+            JSONObject obj = JSON.parseObject(input);
+//            JSONObject obj = new JSONObject(input);
             Tuple2<Long, String> tuple = new Tuple2<>(
                     obj.getLong("dau_time"),
                     obj.getString("device_id")
